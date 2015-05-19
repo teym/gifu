@@ -59,8 +59,8 @@ public class AnimatableImageView: UIImageView, Animatable {
     public func stopAnimatingGIF() {
         animator?.pauseAnimation() ?? stopAnimating()
     }
-    public func applayFilter(filter:(CGImage) -> CGImage){
-        animator?.applayFilter(filter)
+    public func applayFilter(filter:(CGImage) -> CGImage, callBack:() -> Void){
+        self.animator?.applayFilter(filter,callBack: callBack)
     }
 }
 

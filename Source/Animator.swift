@@ -100,8 +100,16 @@ class Animator: NSObject {
             delegate.layer.setNeedsDisplay()
         }
     }
-    func applayFilter(filter:(CGImage) -> CGImage){
-        curry(prepareFrames) <^> originImageSource <*> delegate.frame.size
+    func applayFilter(filter:(CGImage) -> CGImage,callBack:() -> Void){
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), { () -> Void in
+            let ret = curry(self.updateFrames) <^> self.originImageSource <*> self.delegate.frame.size <*> pure(filter)
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                if let pair = ret{
+                    (self.animatedFrames, self.totalDuration) = pair
+                }
+                callBack()
+            }
+        })
     }
     
     // MARK: - Animation
