@@ -1,11 +1,11 @@
 /// A `UIImage` extension that makes it easier to resize the image and inspect its size.
 
-extension UIImage {
+public extension UIImage {
   /// Resizes an image instance.
   ///
   /// :param: size The new size of the image.
   /// :returns: A new resized image instance.
-  func resize(size: CGSize) -> UIImage {
+  public func resize(size: CGSize) -> UIImage {
     UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
     self.drawInRect(CGRect(origin: CGPointZero, size: size))
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -17,7 +17,7 @@ extension UIImage {
   ///
   /// :param: size The constraining size of the image.
   /// :returns: A new resized image instance.
-  func resizeAspectFit(size: CGSize) -> UIImage {
+  public func resizeAspectFit(size: CGSize) -> UIImage {
     let newSize = self.size.sizeConstrainedBySize(size)
     return resize(newSize)
   }
@@ -26,7 +26,7 @@ extension UIImage {
   ///
   /// :param: size The constraining size of the image.
   /// :returns: A new resized image instance.
-  func resizeAspectFill(size: CGSize) -> UIImage {
+  public func resizeAspectFill(size: CGSize) -> UIImage {
     let newSize = self.size.sizeFillingSize(size)
     return resize(newSize)
   }
